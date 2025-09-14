@@ -582,3 +582,29 @@ public class ContainerDto
 }
 
 #endregion
+
+#region Enriched Wizard Data DTOs
+
+/// <summary>
+/// DTO pour les données enrichies du wizard
+/// </summary>
+public class EnrichedWizardDataDto
+{
+    public GeneralRequestInfoDto GeneralRequestInformation { get; set; } = new();
+    public RoutingAndCargoDto RoutingAndCargo { get; set; } = new();
+    public List<SeafreightDto> Seafreights { get; set; } = new();
+    public List<HaulageDto> Haulages { get; set; } = new();
+    public List<ServiceDto> Services { get; set; } = new();
+}
+
+/// <summary>
+/// DTO pour les informations générales
+/// </summary>
+public class GeneralRequestInfoDto
+{
+    public string Channel { get; set; } = string.Empty;
+    public string Priority { get; set; } = "normal";
+    public string? Notes { get; set; }
+}
+
+#endregion

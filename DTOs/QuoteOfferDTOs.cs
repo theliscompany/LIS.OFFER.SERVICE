@@ -145,6 +145,9 @@ public class OptimizedDraftDataDto
     public WizardStepsDto Steps { get; set; } = new();
     public List<DraftOptionDto> Options { get; set; } = new();
     public string? PreferredOptionId { get; set; }
+    
+    // Support pour les données enrichies
+    public EnrichedWizardDataDto? EnrichedData { get; set; }
 }
 
 /// <summary>
