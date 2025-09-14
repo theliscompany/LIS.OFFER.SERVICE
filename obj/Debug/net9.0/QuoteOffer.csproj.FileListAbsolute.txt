@@ -35,3 +35,9 @@ D:\PROJECTS\LIS\LIS.OFFERS.SERVICE\bin\Debug\net9.0\Swashbuckle.AspNetCore.Swagg
 D:\PROJECTS\LIS\LIS.OFFERS.SERVICE\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 D:\PROJECTS\LIS\LIS.OFFERS.SERVICE\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerUI.dll
 D:\PROJECTS\LIS\LIS.OFFERS.SERVICE\bin\Debug\net9.0\Controllers\draftQuoteSchema.json
+D:\PROJECTS\LIS\LIS.OFFERS.SERVICE\bin\Debug\net9.0\DnsClient.dll
+D:\PROJECTS\LIS\LIS.OFFERS.SERVICE\bin\Debug\net9.0\MongoDB.Bson.dll
+D:\PROJECTS\LIS\LIS.OFFERS.SERVICE\bin\Debug\net9.0\MongoDB.Driver.dll
+D:\PROJECTS\LIS\LIS.OFFERS.SERVICE\bin\Debug\net9.0\SharpCompress.dll
+D:\PROJECTS\LIS\LIS.OFFERS.SERVICE\bin\Debug\net9.0\Snappier.dll
+D:\PROJECTS\LIS\LIS.OFFERS.SERVICE\bin\Debug\net9.0\ZstdSharp.dll

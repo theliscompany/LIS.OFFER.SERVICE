@@ -35,6 +35,7 @@ public class QuoteOfferSearchDto
     public DateTime? CreatedTo { get; set; }
     public int? QuoteOfferNumber { get; set; }
     public string? RequestQuoteId { get; set; }
+    public string? SearchTerm { get; set; }
     
     // Pagination
     public int Page { get; set; } = 1;
@@ -43,6 +44,7 @@ public class QuoteOfferSearchDto
     // Tri
     public string? SortBy { get; set; } = "CreatedDate";
     public string? SortOrder { get; set; } = "desc";
+    public string? SortDirection { get; set; } = "desc";
 }
 
 /// <summary>
@@ -69,6 +71,7 @@ public class QuoteOfferSummaryDto
     public string Status { get; set; } = string.Empty;
     public int QuoteOfferNumber { get; set; }
     public DateTime CreatedDate { get; set; }
+    public DateTime UpdatedAt { get; set; }
     public DateTime? ExpirationDate { get; set; }
     public decimal? GrandTotal { get; set; }
     public string Currency { get; set; } = "EUR";
@@ -131,9 +134,12 @@ public class OptionTotalsDto
 public class AttachedFileDto
 {
     public string FileName { get; set; } = string.Empty;
+    public string FilePath { get; set; } = string.Empty;
     public string FileUrl { get; set; } = string.Empty;
     public long FileSize { get; set; }
     public string ContentType { get; set; } = string.Empty;
+    public DateTime UploadedAt { get; set; }
+    public string UploadedBy { get; set; } = string.Empty;
 }
 
 /// <summary>

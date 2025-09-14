@@ -1,30 +1,62 @@
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
+
 namespace QuoteOffer.Models;
 
 /// <summary>
 /// Entité principale représentant une offre de devis ou un brouillon
 /// </summary>
+[BsonCollection("quote_offers")]
 public class QuoteOffer
 {
+    [BsonId]
+    [BsonRepresentation(BsonType.String)]
     public string Id { get; set; } = string.Empty;
+    
+    [BsonElement("request_quote_id")]
     public string RequestQuoteId { get; set; } = string.Empty;
+    
+    [BsonElement("client_number")]
     public string ClientNumber { get; set; } = string.Empty;
+    
+    [BsonElement("email_user")]
     public string EmailUser { get; set; } = string.Empty;
+    
+    [BsonElement("comment")]
     public string? Comment { get; set; }
+    
+    [BsonElement("status")]
+    [BsonRepresentation(BsonType.String)]
     public QuoteOfferStatus Status { get; set; }
+    
+    [BsonElement("quote_offer_number")]
     public int QuoteOfferNumber { get; set; }
+    
+    [BsonElement("selected_option")]
     public int SelectedOption { get; set; }
+    
+    [BsonElement("created_date")]
     public DateTime CreatedDate { get; set; }
+    
+    [BsonElement("updated_at")]
     public DateTime UpdatedAt { get; set; }
+    
+    [BsonElement("expiration_date")]
     public DateTime? ExpirationDate { get; set; }
+    
+    [BsonElement("client_approval")]
     public string? ClientApproval { get; set; }
     
     // Structure des données optimisées pour le wizard
+    [BsonElement("optimized_draft_data")]
     public OptimizedDraftData? OptimizedDraftData { get; set; }
     
     // Options sauvegardées (pour les devis finalisés)
+    [BsonElement("options")]
     public List<QuoteOption> Options { get; set; } = new();
     
     // Fichiers attachés
+    [BsonElement("files")]
     public List<AttachedFile> Files { get; set; } = new();
 }
 
@@ -46,8 +78,13 @@ public enum QuoteOfferStatus
 /// </summary>
 public class QuoteOption
 {
+    [BsonElement("option_id")]
     public string OptionId { get; set; } = string.Empty;
+    
+    [BsonElement("description")]
     public string Description { get; set; } = string.Empty;
+    
+    [BsonElement("totals")]
     public OptionTotals? Totals { get; set; }
 }
 
@@ -56,10 +93,19 @@ public class QuoteOption
 /// </summary>
 public class OptionTotals
 {
+    [BsonElement("haulage_total")]
     public decimal HaulageTotal { get; set; }
+    
+    [BsonElement("seafreight_total")]
     public decimal SeafreightTotal { get; set; }
+    
+    [BsonElement("miscellaneous_total")]
     public decimal MiscellaneousTotal { get; set; }
+    
+    [BsonElement("grand_total")]
     public decimal GrandTotal { get; set; }
+    
+    [BsonElement("currency")]
     public string Currency { get; set; } = "EUR";
 }
 
@@ -68,10 +114,26 @@ public class OptionTotals
 /// </summary>
 public class AttachedFile
 {
+    [BsonElement("file_name")]
     public string FileName { get; set; } = string.Empty;
+    
+    [BsonElement("file_path")]
+    public string FilePath { get; set; } = string.Empty;
+    
+    [BsonElement("file_url")]
     public string FileUrl { get; set; } = string.Empty;
+    
+    [BsonElement("file_size")]
     public long FileSize { get; set; }
+    
+    [BsonElement("content_type")]
     public string ContentType { get; set; } = string.Empty;
+    
+    [BsonElement("uploaded_at")]
+    public DateTime UploadedAt { get; set; }
+    
+    [BsonElement("uploaded_by")]
+    public string UploadedBy { get; set; } = string.Empty;
 }
 
 /// <summary>
