@@ -1,0 +1,224 @@
+{
+  "draftQuoteId": "DQ-2025-014",
+  "requestId": "RQ-2025-0091",
+  "status": "in_progress",
+  "version": 5,
+  "resumeToken": "c0a9-f9b2-8d7a",
+  "header": {
+    "client": {
+      "company": "Société X",
+      "contact": "Jean Dupont",
+      "email": "jean.dupont@email.com",
+      "phone": "+32 471 123 456"
+    },
+    "shipment": {
+      "fromRequest": true,
+      "readonly": ["cargoType","goodsDescription","origin","destination","requestedDeparture"],
+      "cargoType": "FCL",
+      "goodsDescription": "Effets personnels et matériel divers",
+      "origin": { "city": "Lyon", "country": "FR" },
+      "destination": { "city": "Douala", "country": "CM" },
+      "requestedDeparture": "2025-10-15"
+    },
+    "commercialTerms": {
+      "currency": "EUR",
+      "incoterm": "CIF",
+      "validityDays": 15,
+      "cgvAccepted": false
+    }
+  },
+
+  "wizardData": {
+    "generalRequestInformation": {
+      "channel": "Email",
+      "priority": "normal",
+      "notes": "Client souhaite départ mi-octobre; OK pour alternatives si arrivée avant 05/11."
+    },
+
+    "routingAndCargo": {
+      "portOfLoading": "Anvers",
+      "portOfDestination": "Douala",
+      "cargo": {
+        "items": [
+          { "containerType": "20DV", "quantity": 1, "grossWeightKg": 8000, "volumeM3": 28 },
+          { "containerType": "40HC", "quantity": 1, "grossWeightKg": 12000, "volumeM3": 60 }
+        ],
+        "hazmat": false,
+        "goodsDescription": "Effets personnels, mobilier démonté, 1 palette matériel bureautique"
+      }
+    },
+
+    "seafreights": [
+      {
+        "id": "SF-ANR-DLA-01",
+        "carrier": "Compagnie A",
+        "service": "ANR → DLA (direct)",
+        "etd": "2025-10-15",
+        "eta": "2025-11-02",
+        "currency": "EUR",
+        "validUntil": "2025-09-30",
+        "rates": [
+          { "containerType": "20DV", "basePrice": 3200 },
+          { "containerType": "40HC", "basePrice": 4800 }
+        ],
+        "surcharges": [
+          { "code": "BAF", "label": "Bunker", "calc": "percent", "base": "seafreight", "unit": "per_container", "value": 10, "currency": "EUR", "taxable": false, "appliesTo": ["20DV","40HC"] },
+          { "code": "THC_ORI", "label": "Terminal Handling (Origin)", "calc": "flat", "unit": "per_container", "value": 145, "currency": "EUR", "taxable": false, "appliesTo": ["20DV","40HC"] },
+          { "code": "ISPS", "label": "ISPS", "calc": "flat", "unit": "per_container", "value": 15, "currency": "EUR", "taxable": false, "appliesTo": ["20DV","40HC"] },
+          { "code": "PSS", "label": "Peak Season", "calc": "flat", "unit": "per_container", "value": 120, "currency": "EUR", "taxable": false, "appliesTo": ["20DV","40HC"] }
+        ],
+        "freeTime": { "origin": { "days": 5 }, "destination": { "days": 7 } }
+      },
+      {
+        "id": "SF-ANR-DLA-02",
+        "carrier": "Compagnie B",
+        "service": "ANR → DLA (via TNG, 1 transbordement)",
+        "etd": "2025-10-13",
+        "eta": "2025-11-05",
+        "currency": "EUR",
+        "validUntil": "2025-09-28",
+        "rates": [
+          { "containerType": "20DV", "basePrice": 3000 },
+          { "containerType": "40HC", "basePrice": 4550 }
+        ],
+        "surcharges": [
+          { "code": "BAF", "label": "Bunker", "calc": "percent", "base": "seafreight", "unit": "per_container", "value": 9, "currency": "EUR", "taxable": false, "appliesTo": ["20DV","40HC"] },
+          { "code": "THC_ORI", "label": "Terminal Handling (Origin)", "calc": "flat", "unit": "per_container", "value": 145, "currency": "EUR", "taxable": false, "appliesTo": ["20DV","40HC"] },
+          { "code": "ISPS", "label": "ISPS", "calc": "flat", "unit": "per_container", "value": 15, "currency": "EUR", "taxable": false, "appliesTo": ["20DV","40HC"] }
+        ],
+        "freeTime": { "origin": { "days": 5 }, "destination": { "days": 5 } }
+      }
+    ],
+
+    "haulages": [
+      {
+        "id": "HL-1",
+        "provider": "Transporteur X",
+        "scope": "pre-carriage",
+        "from": "Lyon",
+        "to": "Anvers",
+        "currency": "EUR",
+        "pricing": [
+          { "containerType": "20DV", "unit": "per_container", "price": 300, "includedWaitingHours": 1, "extraHourPrice": 60 },
+          { "containerType": "40HC", "unit": "per_container", "price": 350, "includedWaitingHours": 1, "extraHourPrice": 65 }
+        ],
+        "notes": "Ramassage J-2 conseillé; RDV terminal requis."
+      }
+    ],
+
+    "services": [
+      { "id": "SV-1", "name": "Formalités douane export", "provider": "Déclarant Y", "unit": "per_shipment", "price": 200, "currency": "EUR", "taxable": true },
+      { "id": "SV-2", "name": "Services administratifs / dossier", "provider": "CODIBUSINESS", "unit": "per_shipment", "price": 250, "currency": "EUR", "taxable": true },
+      { "id": "SV-3", "name": "Assurance cargo", "provider": "Assureur Z", "unit": "per_shipment", "price": 90, "currency": "EUR", "taxable": true, "taxRate": 0.21 }
+    ]
+  },
+
+  "options": [
+    {
+      "optionId": "OPT-EXP",
+      "label": "Express (service direct)",
+      "containers": [
+        { "containerType": "20DV", "quantity": 1 },
+        { "containerType": "40HC", "quantity": 1 }
+      ],
+      "seafreightRef": "SF-ANR-DLA-01",
+      "haulageRefs": ["HL-1"],
+      "serviceRefs": ["SV-1","SV-2","SV-3"],
+      "suppliers": {
+        "carrier": "Compagnie A",
+        "haulage": ["Transporteur X"],
+        "services": [
+          { "serviceId": "SV-1", "provider": "Déclarant Y" },
+          { "serviceId": "SV-2", "provider": "CODIBUSINESS" },
+          { "serviceId": "SV-3", "provider": "Assureur Z" }
+        ]
+      },
+      "servicesOffered": [
+        { "type": "Maritime", "details": "ANR → DLA direct, ETD 2025-10-15 / ETA 2025-11-02" },
+        { "type": "Route (pré-acheminement)", "details": "Lyon → Anvers (20DV & 40HC)" },
+        { "type": "Douane export", "details": "Déclarant Y" },
+        { "type": "Admin dossier", "details": "CODIBUSINESS" },
+        { "type": "Assurance", "details": "Assureur Z" }
+      ],
+      "schedule": { "etd": "2025-10-15", "eta": "2025-11-02" },
+      "milestones": {
+        "pickup": "2025-10-13",
+        "vgm": "2025-10-13",
+        "si": "2025-10-14",
+        "cutoff": "2025-10-15"
+      },
+      "pricingPreview": {
+        "currency": "EUR",
+        "lines": [
+          { "kind": "seafreight", "description": "20DV base + surcharges (BAF 10% + THC + ISPS + PSS)", "unitPrice": 3800.00, "qty": 1, "taxable": false },
+          { "kind": "seafreight", "description": "40HC base + surcharges (BAF 10% + THC + ISPS + PSS)", "unitPrice": 5560.00, "qty": 1, "taxable": false },
+          { "kind": "haulage", "description": "Pré-acheminement 20DV Lyon→Anvers", "unitPrice": 300.00, "qty": 1, "taxable": false },
+          { "kind": "haulage", "description": "Pré-acheminement 40HC Lyon→Anvers", "unitPrice": 350.00, "qty": 1, "taxable": false },
+          { "kind": "service", "description": "Formalités douane export (Déclarant Y)", "unitPrice": 200.00, "qty": 1, "taxable": true, "taxRate": 0.21 },
+          { "kind": "service", "description": "Services administratifs / dossier", "unitPrice": 250.00, "qty": 1, "taxable": true, "taxRate": 0.21 },
+          { "kind": "service", "description": "Assurance cargo", "unitPrice": 90.00, "qty": 1, "taxable": true, "taxRate": 0.21 }
+        ],
+        "subtotals": {
+          "taxableBase": 540.00,
+          "nontaxableBase": 9710.00
+        },
+        "taxTotal": 113.40,
+        "grandTotal": 10663.40
+      }
+    },
+    {
+      "optionId": "OPT-ECO",
+      "label": "Éco (1 transbordement)",
+      "containers": [
+        { "containerType": "20DV", "quantity": 1 },
+        { "containerType": "40HC", "quantity": 1 }
+      ],
+      "seafreightRef": "SF-ANR-DLA-02",
+      "haulageRefs": ["HL-1"],
+      "serviceRefs": ["SV-1","SV-2","SV-3"],
+      "suppliers": {
+        "carrier": "Compagnie B",
+        "haulage": ["Transporteur X"],
+        "services": [
+          { "serviceId": "SV-1", "provider": "Déclarant Y" },
+          { "serviceId": "SV-2", "provider": "CODIBUSINESS" },
+          { "serviceId": "SV-3", "provider": "Assureur Z" }
+        ]
+      },
+      "servicesOffered": [
+        { "type": "Maritime", "details": "ANR → DLA via TNG, ETD 2025-10-13 / ETA 2025-11-05" },
+        { "type": "Route (pré-acheminement)", "details": "Lyon → Anvers (20DV & 40HC)" },
+        { "type": "Douane export", "details": "Déclarant Y" },
+        { "type": "Admin dossier", "details": "CODIBUSINESS" },
+        { "type": "Assurance", "details": "Assureur Z" }
+      ]
+    }
+  ],
+
+  "validation": {
+    "checks": [
+      { "rule": "dates_consistency", "ok": true },
+      { "rule": "surcharges_validity", "ok": true },
+      { "rule": "cgv_present", "ok": false, "message": "CGV non acceptées (signature/validation requise avant émission du devis)." },
+      { "rule": "rates_per_container", "ok": true, "message": "Un seul rate défini par type de conteneur pour chaque seafreight." }
+    ],
+    "warnings": [
+      { "code": "FREE_TIME_DEST", "message": "Free time destination limité à 5–7 jours selon l’option." }
+    ]
+  },
+
+  "audit": {
+    "createdBy": "user:jeanne",
+    "createdAt": "2025-09-14T10:22:00+02:00",
+    "lastUpdatedBy": "user:jeanne",
+    "lastUpdatedAt": "2025-09-14T11:05:00+02:00",
+    "stepProgress": {
+      "generalRequestInformation": "done",
+      "routingAndCargo": "done",
+      "seafreights": "done",
+      "haulages": "done",
+      "services": "done",
+      "options": "in_progress"
+    }
+  }
+}
