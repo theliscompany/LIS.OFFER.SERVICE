@@ -1,4 +1,6 @@
 using Microsoft.OpenApi.Models;
+using MongoDB.Driver;
+using QuoteOffer.Configuration;
 using QuoteOffer.Services;
 using QuoteOffer.Services.Interfaces;
 using QuoteOffer.Services.Implementation;
@@ -7,6 +9,24 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllers();
+
+// Configure MongoDB
+builder.Services.Configure<MongoDbSettings>(
+    builder.Configuration.GetSection("MongoDB"));
+
+builder.Services.AddSingleton<IMongoClient>(serviceProvider =>
+{
+    var settings = builder.Configuration.GetSection("MongoDB").Get<MongoDbSettings>();
+    return new MongoClient(settings!.ConnectionString);
+});
+
+builder.Services.AddSingleton<IMongoDatabase>(serviceProvider =>
+{
+    var client = serviceProvider.GetRequiredService<IMongoClient>();
+    var settings = builder.Configuration.GetSection("MongoDB").Get<MongoDbSettings>();
+    return client.GetDatabase(settings!.DatabaseName);
+});
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
@@ -20,7 +40,7 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 // Register services
-builder.Services.AddScoped<IQuoteOfferService, QuoteOfferService>();
+builder.Services.AddScoped<IQuoteOfferService, MongoQuoteOfferService>();
 builder.Services.AddHttpClient<IRequestQuoteIntegrationService, RequestQuoteIntegrationService>();
 
 // Add CORS for development
