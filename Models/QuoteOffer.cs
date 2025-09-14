@@ -83,6 +83,163 @@ public class OptimizedDraftData
     public WizardSteps Steps { get; set; } = new();
     public List<DraftOption> Options { get; set; } = new();
     public string? PreferredOptionId { get; set; }
+    
+    // Nouvelles données enrichies pour le schéma DraftQuotes
+    public EnrichedWizardData? EnrichedData { get; set; }
+}
+
+/// <summary>
+/// Données enrichies pour le nouveau schéma DraftQuotes
+/// </summary>
+public class EnrichedWizardData
+{
+    public GeneralRequestInfo GeneralRequestInformation { get; set; } = new();
+    public RoutingAndCargo RoutingAndCargo { get; set; } = new();
+    public List<SeafreightData> Seafreights { get; set; } = new();
+    public List<HaulageData> Haulages { get; set; } = new();
+    public List<ServiceData> Services { get; set; } = new();
+}
+
+/// <summary>
+/// Informations générales de la demande (persisté)
+/// </summary>
+public class GeneralRequestInfo
+{
+    public string Channel { get; set; } = string.Empty;
+    public string Priority { get; set; } = "normal";
+    public string? Notes { get; set; }
+}
+
+/// <summary>
+/// Données de routing et cargo (persisté)
+/// </summary>
+public class RoutingAndCargo
+{
+    public string PortOfLoading { get; set; } = string.Empty;
+    public string PortOfDestination { get; set; } = string.Empty;
+    public CargoData Cargo { get; set; } = new();
+}
+
+/// <summary>
+/// Données de cargo (persisté)
+/// </summary>
+public class CargoData
+{
+    public List<CargoItem> Items { get; set; } = new();
+    public bool Hazmat { get; set; } = false;
+    public string GoodsDescription { get; set; } = string.Empty;
+}
+
+/// <summary>
+/// Item de cargo (persisté)
+/// </summary>
+public class CargoItem
+{
+    public string ContainerType { get; set; } = string.Empty;
+    public int Quantity { get; set; } = 1;
+    public decimal GrossWeightKg { get; set; }
+    public decimal VolumeM3 { get; set; }
+}
+
+/// <summary>
+/// Données de fret maritime (persisté)
+/// </summary>
+public class SeafreightData
+{
+    public string Id { get; set; } = string.Empty;
+    public string Carrier { get; set; } = string.Empty;
+    public string Service { get; set; } = string.Empty;
+    public DateTime Etd { get; set; }
+    public DateTime Eta { get; set; }
+    public string Currency { get; set; } = "EUR";
+    public DateTime ValidUntil { get; set; }
+    public List<ContainerRate> Rates { get; set; } = new();
+    public List<SurchargeData> Surcharges { get; set; } = new();
+    public FreeTimeData? FreeTime { get; set; }
+}
+
+/// <summary>
+/// Tarif par conteneur (persisté)
+/// </summary>
+public class ContainerRate
+{
+    public string ContainerType { get; set; } = string.Empty;
+    public decimal BasePrice { get; set; }
+}
+
+/// <summary>
+/// Surcharge (persisté)
+/// </summary>
+public class SurchargeData
+{
+    public string Code { get; set; } = string.Empty;
+    public string Label { get; set; } = string.Empty;
+    public string Calc { get; set; } = string.Empty;
+    public string? Base { get; set; }
+    public string Unit { get; set; } = string.Empty;
+    public decimal Value { get; set; }
+    public string Currency { get; set; } = "EUR";
+    public bool Taxable { get; set; }
+    public List<string> AppliesTo { get; set; } = new();
+}
+
+/// <summary>
+/// Temps de franchise (persisté)
+/// </summary>
+public class FreeTimeData
+{
+    public FreeTimePeriod Origin { get; set; } = new();
+    public FreeTimePeriod Destination { get; set; } = new();
+}
+
+/// <summary>
+/// Période de temps de franchise (persisté)
+/// </summary>
+public class FreeTimePeriod
+{
+    public int Days { get; set; }
+}
+
+/// <summary>
+/// Données de transport routier (persisté)
+/// </summary>
+public class HaulageData
+{
+    public string Id { get; set; } = string.Empty;
+    public string Provider { get; set; } = string.Empty;
+    public string Scope { get; set; } = string.Empty;
+    public string From { get; set; } = string.Empty;
+    public string To { get; set; } = string.Empty;
+    public string Currency { get; set; } = "EUR";
+    public List<HaulagePricing> Pricing { get; set; } = new();
+    public string? Notes { get; set; }
+}
+
+/// <summary>
+/// Tarification transport routier (persisté)
+/// </summary>
+public class HaulagePricing
+{
+    public string ContainerType { get; set; } = string.Empty;
+    public string Unit { get; set; } = string.Empty;
+    public decimal Price { get; set; }
+    public int IncludedWaitingHours { get; set; } = 1;
+    public decimal ExtraHourPrice { get; set; }
+}
+
+/// <summary>
+/// Données de service (persisté)
+/// </summary>
+public class ServiceData
+{
+    public string Id { get; set; } = string.Empty;
+    public string Name { get; set; } = string.Empty;
+    public string Provider { get; set; } = string.Empty;
+    public string Unit { get; set; } = string.Empty;
+    public decimal Price { get; set; }
+    public string Currency { get; set; } = "EUR";
+    public bool Taxable { get; set; }
+    public decimal? TaxRate { get; set; }
 }
 
 /// <summary>

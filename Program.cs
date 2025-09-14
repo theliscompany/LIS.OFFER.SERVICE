@@ -1,5 +1,7 @@
 using Microsoft.OpenApi.Models;
 using QuoteOffer.Services;
+using QuoteOffer.Services.Interfaces;
+using QuoteOffer.Services.Implementation;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +21,7 @@ builder.Services.AddSwaggerGen(c =>
 
 // Register services
 builder.Services.AddScoped<IQuoteOfferService, QuoteOfferService>();
+builder.Services.AddHttpClient<IRequestQuoteIntegrationService, RequestQuoteIntegrationService>();
 
 // Add CORS for development
 builder.Services.AddCors(options =>
